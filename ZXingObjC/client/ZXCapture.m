@@ -104,7 +104,7 @@
                        original);
 
     CGImageRef rotatedImage = CGBitmapContextCreateImage(context);
-    CFMakeCollectable(rotatedImage);
+    [NSMakeCollectable(rotatedImage) autorelease];
 
     CFRelease(context);
 
@@ -496,14 +496,14 @@ ZXAV(didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer)
 
   CGImageRef videoFrameImage = [ZXCGImageLuminanceSource createImageFromBuffer:videoFrame];
   CGImageRef rotatedImage = [self rotateImage:videoFrameImage degrees:rotation];
-  CGImageRelease(videoFrameImage);
+//  CGImageRelease(videoFrameImage);
 
   ZXCGImageLuminanceSource* source
     = [[[ZXCGImageLuminanceSource alloc]
         initWithCGImage:rotatedImage]
         autorelease];
 
-  CGImageRelease(rotatedImage);
+//  CGImageRelease(rotatedImage);
 
   if (luminance) {
     CGImageRef image = source.image;
